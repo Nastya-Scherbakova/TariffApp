@@ -1,0 +1,50 @@
+
+<section class="home-page">
+
+    <mat-form-field>
+        <mat-select placeholder="Sort by" color="warn" >
+          <mat-option *ngFor="let variant of sortVariants" [value]="variant.by" (focus)="sort(variant.by); savedValue=variant.by">
+            {{variant.name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-slide-toggle checked="asc" (toggleChange)="asc=!asc; sort(savedValue);">
+      {{asc ? "Acsending" : "Descending"}}
+    </mat-slide-toggle>
+
+    <mat-card *ngFor="let tariff of dataSource | async; let i = index ">
+      <div class="tariff-number">{{i+1}}</div>
+      <div class="content-wrapper">
+          <div class="tariff-name">{{tariff.name}}</div>
+          <div><div class="speed">
+              <div class="speed__header">Download</div>
+              <mat-icon color="accent">arrow_downward</mat-icon>
+              <div class="speed__data">
+                {{tariff.speed.download}} Mbit/s</div>
+
+            </div>
+            <div class="speed">
+              <div class="speed__header">Upload</div>
+              <mat-icon color="accent">arrow_upward</mat-icon>
+              <div class="speed__data">
+
+                {{tariff.speed.upload}} Mbit/s</div>
+
+            </div></div>
+            <div class="tariff-benefits">
+              <div class="tariff-benefits__benefit" *ngFor="let benefit of tariff.benefits">
+                  {{benefit}}
+              </div>
+
+            </div>
+            <div class="tariff-cost">
+                {{tariff.cost | currency:'EUR'}}
+                <button mat-raised-button><span class="button-tariff-title">To Tariff </span><mat-icon>chevron_right</mat-icon></button>
+            </div>
+      </div>
+
+    </mat-card>
+
+
+
+</section>
